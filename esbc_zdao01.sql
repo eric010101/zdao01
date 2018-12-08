@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- 主機: localhost:3306
--- 產生時間： 2018 年 12 月 07 日 20:35
--- 伺服器版本: 10.0.37-MariaDB
--- PHP 版本： 7.2.7
+-- 主機: 127.0.0.1
+-- 產生時間： 2018 年 12 月 08 日 09:31
+-- 伺服器版本: 10.1.26-MariaDB
+-- PHP 版本： 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 資料庫： `gogocode_zdao01`
+-- 資料庫： `esbc_zdao01`
 --
 
 -- --------------------------------------------------------
@@ -478,7 +478,8 @@ CREATE TABLE `zdao_oa_attend` (
 --
 
 INSERT INTO `zdao_oa_attend` (`id`, `account`, `date`, `signIn`, `signOut`, `status`, `ip`, `device`, `client`, `manualIn`, `manualOut`, `reason`, `desc`, `reviewStatus`, `reviewedBy`, `reviewedDate`) VALUES
-(1, 'ESBCadmin', '2018-12-07', '17:47:28', '00:00:00', 'both', '185.232.86.237', 'desktop', 'desktop', '00:00:00', '00:00:00', '', '', '', '', '0000-00-00 00:00:00');
+(1, 'ESBCadmin', '2018-12-07', '17:47:28', '00:00:00', 'both', '185.232.86.237', 'desktop', 'desktop', '00:00:00', '00:00:00', '', '', '', '', '0000-00-00 00:00:00'),
+(2, 'ESBCadmin', '2018-12-08', '11:51:15', '00:00:00', 'rest', '::1', 'desktop', 'desktop', '00:00:00', '00:00:00', '', '', '', '', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -794,7 +795,8 @@ CREATE TABLE `zdao_sys_action` (
 --
 
 INSERT INTO `zdao_sys_action` (`id`, `customer`, `contact`, `objectType`, `objectID`, `actor`, `action`, `date`, `comment`, `extra`, `read`, `reader`) VALUES
-(1, 0, 0, 'user', 1, 'ESBCadmin', 'login', '2018-12-07 17:47:28', '', '', '0', '');
+(1, 0, 0, 'user', 1, 'ESBCadmin', 'login', '2018-12-07 17:47:28', '', '', '0', ''),
+(2, 0, 0, 'user', 1, 'ESBCadmin', 'login', '2018-12-08 11:51:15', '', '', '0', '');
 
 -- --------------------------------------------------------
 
@@ -859,7 +861,12 @@ INSERT INTO `zdao_sys_block` (`id`, `account`, `app`, `title`, `source`, `block`
 (5, 'ESBCadmin', 'sys', '我的訂單', 'crm', 'order', '{\"num\":15,\"orderBy\":\"id_desc\",\"type\":\"createdBy\",\"status\":[]}', 5, 4, 0, 0),
 (6, 'ESBCadmin', 'sys', '付款賬戶', 'cash', 'depositor', '[]', 6, 4, 0, 0),
 (7, 'ESBCadmin', 'sys', '最新博客', 'team', 'blog', '{\"num\":15}', 7, 4, 0, 0),
-(8, 'ESBCadmin', 'sys', '最新帖子', 'team', 'thread', '{\"num\":15,\"type\":\"new\"}', 8, 4, 0, 0);
+(8, 'ESBCadmin', 'sys', '最新帖子', 'team', 'thread', '{\"num\":15,\"type\":\"new\"}', 8, 4, 0, 0),
+(9, 'ESBCadmin', 'oa', '日曆', 'oa', 'attend', '', 1, 6, 0, 0),
+(10, 'ESBCadmin', 'oa', '系統公告', 'oa', 'announce', '{\"num\":15}', 2, 4, 0, 0),
+(11, 'ESBCadmin', 'crm', '我的訂單', 'crm', 'order', '{\"num\":15,\"orderBy\":\"id_desc\",\"type\":\"createdBy\",\"status\":[]}', 1, 4, 0, 0),
+(12, 'ESBCadmin', 'crm', '我的合同', 'crm', 'contract', '{\"num\":15,\"orderBy\":\"id_desc\",\"type\":\"returnedBy\",\"status\":[]}', 2, 4, 0, 0),
+(13, 'ESBCadmin', 'crm', '本週聯繫', 'crm', 'customer', '{\"num\":15,\"orderBy\":\"id_desc\",\"type\":\"thisweek\"}', 3, 4, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -931,7 +938,10 @@ INSERT INTO `zdao_sys_config` (`id`, `owner`, `app`, `module`, `section`, `key`,
 (1, 'system', 'sys', 'xuanxuan', 'global', 'version', '2.1.0'),
 (2, 'system', 'sys', 'xuanxuan', '', 'key', 'c06ad29a92b3463631bccfde0db16cae'),
 (3, 'system', 'sys', 'common', 'global', 'version', '4.9'),
-(4, 'ESBCadmin', 'sys', 'common', '', 'blockInited', '1');
+(4, 'ESBCadmin', 'sys', 'common', '', 'blockInited', '1'),
+(5, 'system', 'sys', 'cron', 'run', 'status', 'running'),
+(6, 'ESBCadmin', 'oa', 'common', '', 'blockInited', '1'),
+(7, 'ESBCadmin', 'crm', 'common', '', 'blockInited', '1');
 
 -- --------------------------------------------------------
 
@@ -959,12 +969,12 @@ CREATE TABLE `zdao_sys_cron` (
 --
 
 INSERT INTO `zdao_sys_cron` (`id`, `m`, `h`, `dom`, `mon`, `dow`, `command`, `remark`, `type`, `buildin`, `status`, `lastTime`) VALUES
-(1, '*', '*', '*', '*', '*', '', 'Monitor cron', 'ranzhi', 1, 'normal', '0000-00-00 00:00:00'),
-(2, '1', '1', '*', '*', '*', 'appName=sys&moduleName=backup&methodName=backup&reload=0', 'Back up data & files', 'ranzhi', 1, 'normal', '0000-00-00 00:00:00'),
-(3, '1', '1', '*', '*', '*', 'appName=sys&moduleName=backup&methodName=batchdelete&saveDays=30', 'Auto delete the data 30 days prior to today', 'ranzhi', 1, 'normal', '0000-00-00 00:00:00'),
-(4, '1', '7', '*', '*', '*', 'appName=sys&moduleName=report&methodName=remind', 'Daily Reminder', 'ranzhi', 1, 'normal', '0000-00-00 00:00:00'),
-(5, '*/1', '*', '*', '*', '*', 'appName=sys&moduleName=queue&methodName=getqueue', '出队列', 'ranzhi', 0, 'normal', '0000-00-00 00:00:00'),
-(6, '*/10', '*', '*', '*', '*', 'appName=sys&moduleName=queue&methodName=additional', '检查是否添加待办', 'ranzhi', 0, 'normal', '0000-00-00 00:00:00');
+(1, '*', '*', '*', '*', '*', '', 'Monitor cron', 'ranzhi', 1, 'normal', '2018-12-08 16:31:00'),
+(2, '1', '1', '*', '*', '*', 'appName=sys&moduleName=backup&methodName=backup&reload=0', 'Back up data & files', 'ranzhi', 1, 'normal', '2018-12-08 11:51:15'),
+(3, '1', '1', '*', '*', '*', 'appName=sys&moduleName=backup&methodName=batchdelete&saveDays=30', 'Auto delete the data 30 days prior to today', 'ranzhi', 1, 'normal', '2018-12-08 11:51:15'),
+(4, '1', '7', '*', '*', '*', 'appName=sys&moduleName=report&methodName=remind', 'Daily Reminder', 'ranzhi', 1, 'normal', '2018-12-08 11:51:15'),
+(5, '*/1', '*', '*', '*', '*', 'appName=sys&moduleName=queue&methodName=getqueue', '出队列', 'ranzhi', 0, 'normal', '2018-12-08 16:31:00'),
+(6, '*/10', '*', '*', '*', '*', 'appName=sys&moduleName=queue&methodName=additional', '检查是否添加待办', 'ranzhi', 0, 'normal', '2018-12-08 16:30:00');
 
 -- --------------------------------------------------------
 
@@ -2033,7 +2043,7 @@ CREATE TABLE `zdao_sys_user` (
 --
 
 INSERT INTO `zdao_sys_user` (`id`, `dept`, `account`, `password`, `realname`, `role`, `nickname`, `admin`, `avatar`, `birthday`, `gender`, `email`, `skype`, `qq`, `yahoo`, `gtalk`, `wangwang`, `site`, `mobile`, `phone`, `address`, `zipcode`, `visits`, `ip`, `last`, `ping`, `fails`, `join`, `locked`, `deleted`, `status`) VALUES
-(1, 0, 'ESBCadmin', '7ff3b3b76b2174643e7deb4bd908d10c', 'ESBCadmin', '', '', 'super', '', '0000-00-00', 'u', '', '', '', '', '', '', '', '', '', '', '', 1, '185.232.86.237', '2018-12-07 17:47:28', '2018-12-07 18:01:33', 0, '2018-12-07 03:46:54', '0000-00-00 00:00:00', '0', 'offline');
+(1, 0, 'ESBCadmin', '7ff3b3b76b2174643e7deb4bd908d10c', 'ESBCadmin', '', '', 'super', '', '0000-00-00', 'u', '', '', '', '', '', '', '', '', '', '', '', 2, '::1', '2018-12-08 11:51:15', '2018-12-08 16:30:59', 0, '2018-12-07 03:46:54', '0000-00-00 00:00:00', '0', 'offline');
 
 -- --------------------------------------------------------
 
@@ -2747,7 +2757,7 @@ ALTER TABLE `zdao_im_message`
 -- 使用資料表 AUTO_INCREMENT `zdao_oa_attend`
 --
 ALTER TABLE `zdao_oa_attend`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- 使用資料表 AUTO_INCREMENT `zdao_oa_attendstat`
@@ -2825,7 +2835,7 @@ ALTER TABLE `zdao_oa_trip`
 -- 使用資料表 AUTO_INCREMENT `zdao_sys_action`
 --
 ALTER TABLE `zdao_sys_action`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- 使用資料表 AUTO_INCREMENT `zdao_sys_article`
@@ -2837,7 +2847,7 @@ ALTER TABLE `zdao_sys_article`
 -- 使用資料表 AUTO_INCREMENT `zdao_sys_block`
 --
 ALTER TABLE `zdao_sys_block`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- 使用資料表 AUTO_INCREMENT `zdao_sys_category`
@@ -2849,7 +2859,7 @@ ALTER TABLE `zdao_sys_category`
 -- 使用資料表 AUTO_INCREMENT `zdao_sys_config`
 --
 ALTER TABLE `zdao_sys_config`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- 使用資料表 AUTO_INCREMENT `zdao_sys_cron`
